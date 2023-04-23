@@ -139,19 +139,3 @@ export function unregister() {
       });
   }
 }
-
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", function () {
-//     navigator.serviceWorker
-//       .register(`${process.env.PUBLIC_URL}/sw.js`, { type: "module" })
-//       .then(function (registration) {
-//         console.log("Service Worker enregistré avec succès : ", registration);
-//       })
-//       .catch(function (error) {
-//         console.log(
-//           "Erreur lors de l'enregistrement du Service Worker: ",
-//           error
-//         );
-//       });
-//   });
-// }

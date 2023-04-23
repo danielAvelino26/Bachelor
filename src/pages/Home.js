@@ -21,7 +21,7 @@ const fetchProducts = async () => {
 
       return data;
     } catch (error) {
-      console.error("Erreur lors de la récupération des produits:", error);
+      alert("Erreur lors de la récupération des produits:", error);
     }
   }
 
@@ -39,7 +39,6 @@ const fetchProducts = async () => {
 export const Home = () => {
   const { isLoading, error, data } = useQuery("products", fetchProducts);
   const [filteredProducts, setFilteredProducts] = React.useState([]);
-  console.log('render')
 
   React.useEffect(() => {
     if (data) {
@@ -56,10 +55,9 @@ export const Home = () => {
     const filtered = data.filter((product) => {
       return product.title.toLowerCase().includes(search.toLowerCase());
     });
-  
+
     setFilteredProducts(filtered);
   };
-  
 
   return (
     <>

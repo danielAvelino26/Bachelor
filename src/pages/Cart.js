@@ -67,7 +67,12 @@ export const Cart = () => {
             mr={{ base: "0", sm: "4" }}
           />
 
-          <VStack flex="1" alignItems="flex-start" spacing={4} mr={{ base: "0", sm: "4" }}>
+          <VStack
+            flex="1"
+            alignItems="flex-start"
+            spacing={4}
+            mr={{ base: "0", sm: "4" }}
+          >
             <Text fontSize="lg" fontWeight="bold">
               {product.title}
             </Text>
@@ -109,7 +114,7 @@ export const Cart = () => {
           <Box>{renderProducts()}</Box>
           <Box mt={4}>
             <Text fontSize="2xl" fontWeight="bold">
-              Total: {totalAmountOfCart()}.-
+              Total: {totalAmountOfCart()} .-
             </Text>
           </Box>
         </>

@@ -7,11 +7,6 @@ import {
   Container,
   Flex,
   HStack,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -20,7 +15,10 @@ import { CartContext } from "../context/CartContext";
 export const NavBar = () => {
   const { state } = useContext(CartContext);
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen)
+
+  const handleCartClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   const countNbItems = () => {
     let nbItems = 0;
@@ -46,7 +44,13 @@ export const NavBar = () => {
             {state.cart.length - 3} autres articles...
           </Text>
         )}
-        <Button as={NavLink} to="/panier" size="sm" mt={2} onClick={() => setIsOpen(!isOpen)}>
+        <Button
+          as={NavLink}
+          to="/panier"
+          size="sm"
+          mt={2}
+          onClick={handleCartClick}
+        >
           Voir le panier
         </Button>
       </VStack>
@@ -89,26 +93,34 @@ export const NavBar = () => {
           </NavLink>
         </HStack>
 
-        <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <PopoverTrigger>
-            <HStack onClick={() => setIsOpen(!isOpen)}>
-              <Box fontSize="xl" fontWeight="bold" color="blue.500">
-                <FaShoppingCart size={20} />
-              </Box>
-              <Box fontSize="xl" fontWeight="bold" color="blue.500">
-                <Text>{countNbItems()}</Text>
-              </Box>
-            </HStack>
-          </PopoverTrigger>
-          {state.cart.length > 0 && (
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverBody>{renderCartPreview()}</PopoverBody>
-                          </PopoverContent>
+        <Box position="relative">
+          <HStack onClick={handleCartClick}>
+            <Box fontSize="xl" fontWeight="bold" color="blue.500">
+              <FaShoppingCart size={20} />
+            </Box>
+            <Box fontSize="xl" fontWeight="bold" color="blue.500">
+              <Text>{countNbItems()}</Text>
+            </Box>
+          </HStack>
+
+          {isOpen && state.cart.length > 0 && (
+            <Box
+              position="absolute"
+              top="100%"
+              right={0}
+              mt="2"
+              zIndex="2"
+              bg="white"
+              boxShadow="md"
+              borderRadius="md"
+              p="2"
+              w="300px"
+            >
+              {renderCartPreview()}
+            </Box>
           )}
-        </Popover>
+        </Box>
       </Flex>
     </Container>
   );
 };
-
