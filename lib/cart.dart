@@ -10,12 +10,15 @@ class CartItem {
   CartItem(this.product, this.quantity);
 }
 
-// create a class Cart that contains a product and a quantity
 class Cart {
   final List<CartItem> items = [];
   ValueNotifier<int> itemCountNotifier = ValueNotifier(0);
 
-  // add a product to the cart, if it already exists, increase the quantity
+  void _updateItemCount() {
+    itemCountNotifier.value =
+        items.fold(0, (total, item) => total + item.quantity);
+  }
+
   void add(Product product) {
     var item =
         items.firstWhereOrNull((element) => element.product.id == product.id);
@@ -25,9 +28,9 @@ class Cart {
     } else {
       item.quantity++;
     }
+    _updateItemCount();
   }
 
-  // remove a product from the cart, if the quantity is 1, remove the product
   void remove(Product product) {
     var item =
         items.firstWhereOrNull((element) => element.product.id == product.id);
@@ -39,9 +42,9 @@ class Cart {
         item.quantity--;
       }
     }
+    _updateItemCount();
   }
 
-  // return the total price of the cart
   double getTotalPrice() {
     return items.fold(0, (previousValue, element) {
       return previousValue + element.product.price * element.quantity;
