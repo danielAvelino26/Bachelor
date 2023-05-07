@@ -28,7 +28,7 @@ class _CartPageState extends State<CartPage> {
                         backgroundImage: NetworkImage(item.product.image),
                       ),
                       title: Text(item.product.title),
-                      subtitle: Text('Prix: ${item.product.price} €'),
+                      subtitle: Text('Prix: ${item.product.price}.-'),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -61,7 +61,7 @@ class _CartPageState extends State<CartPage> {
                 builder: (context, value, child) {
                   return SafeArea(
                     child: Text(
-                      'Total: ${widget.cart.getTotalPrice().toStringAsFixed(2)} €',
+                      'Total: ${widget.cart.getTotalPrice().toStringAsFixed(2)}.-',
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
