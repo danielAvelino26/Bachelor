@@ -1,13 +1,13 @@
 import 'package:crossplateforme/mycard.dart';
+import 'package:crossplateforme/product.dart';
 import 'package:crossplateforme/store.dart';
 import 'package:crossplateforme/cart_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:app_bar_with_search_switch/app_bar_with_search_switch.dart';
 import 'cart.dart';
 
 void main() {
   runApp(const MyApp());
-  print('render');
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'E-Commerce',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -37,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late final Store _store;
   final Cart _cart = Cart();
+  ValueNotifier<String> searchText = ValueNotifier<String>('');
 
   @override
   void initState() {
@@ -48,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Stack(
       children: [
         IconButton(
-          icon: Icon(Icons.shopping_cart),
+          icon: const Icon(Icons.shopping_cart),
           onPressed: () {
             Navigator.push(
               context,
@@ -92,14 +93,22 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(widget.title),
-            cartIcon(),
-          ],
-        ),
+      appBar: AppBarWithSearchSwitch(
+        onChanged: (text) {
+          searchText.value = text;
+        },
+        appBarBuilder: (context) {
+          return AppBar(
+            title: Text(widget.title),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: AppBarWithSearchSwitch.of(context)?.startSearch,
+              ),
+              cartIcon(),
+            ],
+          );
+        },
       ),
       body: Center(
         child: FutureBuilder(
@@ -109,22 +118,31 @@ class _MyHomePageState extends State<MyHomePage> {
               if (snapshot.hasError) {
                 return Text('Erreur : ${snapshot.error}');
               } else {
-                return _store.products.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: _store.products.length,
-                        itemBuilder: (context, index) {
-                          var product = _store.products[index];
-                          return MyCard(
-                              title: product.title,
-                              price: product.price,
-                              imageUrl: product.image,
-                              onPressed: () {
-                                _cart.add(product);
-                                print(_cart.itemCountNotifier.value);
-                              });
-                        },
-                      )
-                    : const Text("No products");
+                return ValueListenableBuilder<String>(
+                  valueListenable: searchText,
+                  builder: (context, searchValue, _) {
+                    List<Product> filteredProducts = _store.products
+                        .where((product) => product.title
+                            .toLowerCase()
+                            .contains(searchValue.toLowerCase()))
+                        .toList();
+                    return filteredProducts.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: filteredProducts.length,
+                            itemBuilder: (context, index) {
+                              var product = filteredProducts[index];
+                              return MyCard(
+                                  title: product.title,
+                                  price: product.price,
+                                  imageUrl: product.image,
+                                  onPressed: () {
+                                    _cart.add(product);
+                                  });
+                            },
+                          )
+                        : const Text("No products");
+                  },
+                );
               }
             } else {
               return const CircularProgressIndicator();

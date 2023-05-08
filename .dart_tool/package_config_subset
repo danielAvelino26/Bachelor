@@ -1,3 +1,7 @@
+app_bar_with_search_switch
+2.12
+file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/app_bar_with_search_switch-1.3.9/
+file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/app_bar_with_search_switch-1.3.9/lib/
 async
 2.18
 file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/async-2.10.0/
@@ -22,6 +26,10 @@ cupertino_icons
 2.12
 file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.5/
 file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.5/lib/
+easy_search_bar
+2.18
+file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/easy_search_bar-2.5.0/
+file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/easy_search_bar-2.5.0/lib/
 fake_async
 2.12
 file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/fake_async-1.3.1/
@@ -96,8 +104,8 @@ file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/vector_math-2.1.4/
 file:///Users/daniel_avelino/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib/
 crossplateforme
 2.19
-file:///Users/daniel_avelino/Documents/_HEG/Bachelor/Bachelor/ecommerce-pwa/
-file:///Users/daniel_avelino/Documents/_HEG/Bachelor/Bachelor/ecommerce-pwa/lib/
+file:///Users/daniel_avelino/Documents/_HEG/Bachelor/Proto/
+file:///Users/daniel_avelino/Documents/_HEG/Bachelor/Proto/lib/
 sky_engine
 2.12
 file:///Users/daniel_avelino/flutter/bin/cache/pkg/sky_engine/
